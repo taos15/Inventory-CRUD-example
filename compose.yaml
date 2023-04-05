@@ -1,0 +1,35 @@
+services:
+  API:
+    image: api
+    build: ./api/Dockerfile
+    container_name: api
+    env_file:
+      - /.env
+    volumes:
+      - ./api:/
+    ports:
+      - 8080:${APIPORTI}
+  UI:
+    image: ui
+    build: ./ui/Dockerfile
+    container_name: ui
+    env_file:
+      - /.env
+    volumes:
+      - ./ui:/
+    ports:
+      - 5000:${UIPORTI}
+  db:
+    image: postgres
+    container_name: db
+    env_file:
+      - /.env
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DATABASEUSER}
+      - POSTGRES_DB=${DATABASENAME}
+      - POSTGRES_PASSWORD=${DATABASEPASSWORD}
