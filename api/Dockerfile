@@ -1,12 +1,17 @@
-FROM node:alpine
+FROM node:19-alpine3.17
 
 # set the directory docekr is runnin the commands
-WORKDIR /
+WORKDIR /api
 
 # copy source code
 COPY . /api
 
-# install
-RUN npm install
+# update packages
+RUN apk update && \
+  apk upgrade -f && \
+  npm install -g pnpm
 
-CMD [ "npm", "start" ]
+# install
+RUN pnpm install
+
+CMD [ "pnpm", "start" ]

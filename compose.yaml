@@ -15,10 +15,10 @@ services:
     container_name: ui
     env_file:
       - .env
-    volumes:
-      - ./ui:/ui
+    # volumes:
+    #   - ./ui:/ui
     ports:
-      - 5000:${UIPORTI}
+      - 8070:${UIPORTI}
   db:
     image: postgres
     container_name: db

@@ -6,10 +6,13 @@ dotenv.config({ path: '../.env' });
 
 const port = process.env.UIPORTI ?? 5000;
 
-// https://vitejs.dev/config/
+/* https://vitejs.dev/config/
+https://vitejs.dev/config/server-options.html#server-watch */
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: true,
+    strictPort: true,
     port,
   },
 });
