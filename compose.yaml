@@ -1,29 +1,29 @@
 services:
   API:
     image: api
-    build: ./api/Dockerfile
+    build: ./api
     container_name: api
     env_file:
-      - /.env
+      - .env
     volumes:
-      - ./api:/
+      - ./api:/api
     ports:
       - 8080:${APIPORTI}
   UI:
     image: ui
-    build: ./ui/Dockerfile
+    build: ./ui
     container_name: ui
     env_file:
-      - /.env
+      - .env
     volumes:
-      - ./ui:/
+      - ./ui:/ui
     ports:
       - 5000:${UIPORTI}
   db:
     image: postgres
     container_name: db
     env_file:
-      - /.env
+      - .env
     restart: always
     ports:
       - 5432:5432
