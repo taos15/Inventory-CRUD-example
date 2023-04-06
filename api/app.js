@@ -7,6 +7,7 @@ const {
   getItems,
   getAllItems,
   updateItem,
+  deleteItem,
 } = require('./knex/knexControllers');
 
 const app = express();
@@ -27,7 +28,6 @@ app.get('/', (req, res) => {
 // get one item
 app.get('/api/v1/item/:item_name', async (req, res) => {
   try {
-    console.log(req.params);
     const item = await getItems(req.params);
     res.status(201).send(item);
   } catch (e) {
@@ -38,10 +38,22 @@ app.get('/api/v1/item/:item_name', async (req, res) => {
 // update one item
 app.patch('/api/v1/item/:item_name', async (req, res) => {
   try {
-    console.log(req.body)
     await updateItem(req.params, req.body);
     const item = await getItems(req.params);
     res.status(201).send(item);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// delete one item
+app.delete('/api/v1/item/:item_name', async (req, res) => {
+  try {
+    await deleteItem(req.params);
+    const item = await getItems(req.params);
+    res
+      .status(201)
+      .send(JSON.stringify(`Record: ${req.params.item_name} has been deleted`));
   } catch (e) {
     console.log(e);
   }
