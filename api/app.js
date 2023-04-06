@@ -1,7 +1,7 @@
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
-const { createUser } = require('./knex/knexControllers');
+const { createUser, createItem } = require('./knex/knexControllers');
 
 const app = express();
 
@@ -21,6 +21,14 @@ app.get('/', (req, res) => {
 app.post('/api/v1/createuser', async (req, res) => {
   try {
     await createUser(req.body);
+    res.status(201).send(req.body);
+  } catch (e) {
+    console.log(e);
+  }
+});
+app.post('/api/v1/createitem', async (req, res) => {
+  try {
+    await createItem(req.body);
     res.status(201).send(req.body);
   } catch (e) {
     console.log(e);

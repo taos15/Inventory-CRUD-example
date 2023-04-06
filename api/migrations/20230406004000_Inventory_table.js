@@ -15,7 +15,8 @@ exports.up = function (knex) {
       table.increments('id');
       table.integer('userid');
       table.foreign('userid').references('users.id');
-      table.string('item name').unique();
+      table.string('item_name').unique();
+      table.string('description');
       table.integer('quantity');
     });
 };
