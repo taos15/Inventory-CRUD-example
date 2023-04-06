@@ -6,6 +6,7 @@ const {
   createItem,
   getItems,
   getAllItems,
+  updateItem,
 } = require('./knex/knexControllers');
 
 const app = express();
@@ -27,6 +28,18 @@ app.get('/', (req, res) => {
 app.get('/api/v1/item/:item_name', async (req, res) => {
   try {
     console.log(req.params);
+    const item = await getItems(req.params);
+    res.status(201).send(item);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+// update one item
+app.patch('/api/v1/item/:item_name', async (req, res) => {
+  try {
+    console.log(req.body)
+    await updateItem(req.params, req.body);
     const item = await getItems(req.params);
     res.status(201).send(item);
   } catch (e) {
