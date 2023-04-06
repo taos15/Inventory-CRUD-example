@@ -9,7 +9,7 @@ const pgstring =
 
 module.exports = {
   development: {
-    client: "sqlite3",
+    client: "pg",
     connection: pgstring,
   },
 
