@@ -2,6 +2,7 @@ import { Container } from 'react-bootstrap';
 import { Route, Routes } from 'react-router-dom';
 
 import { FormDoc } from './components/FormDoc';
+import { ItemForm } from './components/ItemForm';
 import { LoginForm } from './components/LoginForm';
 import Navbar from './components/NavBar';
 import Home from './pages/Home';
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path='/myinventory' element={<MyInventory />} />
           <Route path='/inventory' element={<Inventory />} />
+          <Route path='/createitem' element={<ItemForm />} />
           <Route path='/createuser' element={<FormDoc />} />
           <Route path='/login' element={<LoginForm />} />
           <Route path='/item/:id' element={<ItemPage />} />

@@ -53,6 +53,11 @@ export default function AppNavbar() {
                 My Inventory
               </Link>
             )}
+            {isLoggedIn && (
+              <Link className='' to='/createitem'>
+                Add Item
+              </Link>
+            )}
           </Nav>
         </Navbar>
       </Col>

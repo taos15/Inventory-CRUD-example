@@ -2,7 +2,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 export function FormDoc() {
@@ -42,22 +42,28 @@ export function FormDoc() {
     );
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(handleData)}>
-        <label htmlFor='firstName'>First Name</label>
-        <input type='text' id='firstName' {...register('first_name')} />
-
-        <label htmlFor='lastName'>Last Name</label>
-        <input type='text' id='lastName' {...register('last_name')} />
-
-        <label htmlFor='username'>username</label>
-        <input type='username' id='username' {...register('username')} />
-
-        <label htmlFor='password'>password</label>
-        <input type='password' id='password' {...register('password')} />
-
-        <button type='submit'>Submit</button>
-      </form>
-    </div>
+    <Row>
+      <Col>
+        <br />
+        <br />
+        <form onSubmit={handleSubmit(handleData)}>
+          <label htmlFor='firstName'>First Name</label>
+          <input type='text' id='firstName' {...register('first_name')} />
+          <label htmlFor='lastName'>Last Name</label>
+          <input type='text' id='lastName' {...register('last_name')} />
+          <br />
+          <br />
+          <label htmlFor='username'>username</label>
+          <input type='username' id='username' {...register('username')} />
+          <br />
+          <br />
+          <label htmlFor='password'>password</label>
+          <input type='password' id='password' {...register('password')} />
+          <br />
+          <br />
+          <button type='submit'>Submit</button>
+        </form>
+      </Col>
+    </Row>
   );
 }
