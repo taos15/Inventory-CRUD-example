@@ -26,10 +26,10 @@ export default function Inventory() {
   }
 
   return (
-    <div className=' tw-m-2 tw-box-content tw-columns-3 tw-gap-2'>
+    <div className='   tw-gap-2'>
       {data.map((item) => (
-        <div className='tw-mb-2'>
-          <InventoryCard key={item.id} item={item} />
+        <div className='tw-mb-2' key={item.id}>
+          <InventoryCard item={item} />
         </div>
       ))}
     </div>

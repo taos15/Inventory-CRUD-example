@@ -66,6 +66,7 @@
     "react/jsx-no-useless-fragment": "warn",
     "react/jsx-no-constructed-context-values": "warn",
     "jsx-quotes": ["error", "prefer-single"],
+    "react/jsx-props-no-spreading": "warn",
     "no-unused-vars": "warn",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "warn",

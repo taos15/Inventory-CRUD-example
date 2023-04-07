@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 
 // you can have multiple context like this one
 const SomeContext = React.createContext();
@@ -12,6 +12,7 @@ export const useSome = () => useContext(SomeContext);
 const queryClient = new QueryClient();
 
 export function MainContextProvider({ children }) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // add here the states you want to pass through the context provider
   const [someState, setSomeState] = useState(
     'Hello Vite, This text is in the Context provider component',
@@ -19,7 +20,9 @@ export function MainContextProvider({ children }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SomeContext.Provider value={{ someState, setSomeState }}>
+      <SomeContext.Provider
+        value={{ someState, setSomeState, isLoggedIn, setIsLoggedIn }}
+      >
         {children}
       </SomeContext.Provider>
       <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />

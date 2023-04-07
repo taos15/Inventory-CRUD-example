@@ -74,7 +74,12 @@ app.post('/api/v1/createuser', async (req, res) => {
     await createUser(req.body);
     res.status(201).send(req.body);
   } catch (e) {
-    console.log(e);
+    if (e.code === '23505') {
+      res.status(400).send('User already exists');
+    } else {
+      console.log(e);
+      res.status(500).send('Internal server error');
+    }
   }
 });
 

@@ -11,8 +11,16 @@ const getAllItems = () => {
 };
 
 // create user
-const createUser = (user) => {
-  return knex('users').insert(user);
+const createUser = async (user) => {
+  try {
+    const [newUser] = await knex('users').insert(user).returning('*');
+    return newUser;
+  } catch (err) {
+    // if (err.code === '23505' || '23503') {
+    //   throw new Error('User already exists');
+    // }
+    throw err;
+  }
 };
 
 // create one item

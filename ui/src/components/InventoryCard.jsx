@@ -8,20 +8,20 @@ export default function InventoryCard({ item }) {
 
   return (
     <Card
-      className='tw-border-2'
+      style={{ width: '18rem' }}
       onClick={() =>
         navigateTo(`/item/${item.id}`, {
           state: { item },
         })
       }
-      style={{ minWidth: 150, minHeight: 190, maxHeight: 195 }}
+      // style={{  }}
     >
       <Card.Body>
         <Card.Title>{item.item_name}</Card.Title>
         <Card.Subtitle className='text-muted mb-2'>{`Quantity: ${item.quantity}`}</Card.Subtitle>
         <Card.Text>
           {location.pathname.includes('/inventory') &&
-          item.description.length > 99
+          item.description.length >= 99
             ? `${item.description.slice(0, 100)}...`
             : item.description}
         </Card.Text>
