@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import { Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -7,27 +8,29 @@ export default function InventoryCard({ item }) {
   const location = useLocation();
 
   return (
-    <Card
-      style={{ width: '18rem' }}
-      onClick={() =>
-        navigateTo(`/item/${item.id}`, {
-          state: { item },
-        })
-      }
-      // style={{  }}
-    >
-      <Card.Body>
-        <Card.Title>{item.item_name}</Card.Title>
-        <Card.Subtitle className='text-muted mb-2'>{`Quantity: ${item.quantity}`}</Card.Subtitle>
-        <Card.Text>
-          {location.pathname.includes('/inventory') ||
-          (location.pathname.includes('/myinventory') &&
-            item.description.length >= 99)
-            ? `${item.description.slice(0, 100)}...`
-            : item.description}
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    <Row>
+      <Card
+        style={{ width: '18rem' }}
+        onClick={() =>
+          navigateTo(`/item/${item.id}`, {
+            state: { item },
+          })
+        }
+        // style={{  }}
+      >
+        <Card.Body>
+          <Card.Title>{item.item_name}</Card.Title>
+          <Card.Text>
+            {(location.pathname.includes('/inventory') ||
+              location.pathname.includes('/myinventory')) &&
+            item.description.length >= 99
+              ? `${item.description.slice(0, 100)}...`
+              : item.description}
+          </Card.Text>
+          <Card.Text className='text-muted mb-2'>{`Quantity: ${item.quantity}`}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Row>
   );
 
   // return (

@@ -7,6 +7,7 @@ import Navbar from './components/NavBar';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
 import ItemPage from './pages/ItemPage';
+import MyInventory from './pages/MyInventory';
 import { MainContextProvider } from './utilities/MainContextProvider';
 
 // the Home component is using the context provider to render the text
@@ -17,7 +18,7 @@ function App() {
       <Container>
         <Navbar />
         <Routes>
-          <Route path='/myinventory' element={<Inventory />} />
+          <Route path='/myinventory' element={<MyInventory />} />
           <Route path='/inventory' element={<Inventory />} />
           <Route path='/createuser' element={<FormDoc />} />
           <Route path='/login' element={<LoginForm />} />

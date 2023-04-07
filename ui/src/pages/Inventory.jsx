@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { Col, Row } from 'react-bootstrap';
 
 import InventoryCard from '../components/InventoryCard';
 
@@ -25,12 +26,15 @@ export default function Inventory() {
   }
 
   return (
-    <div className='   '>
-      {data.map((item) => (
-        <div className='' key={item.id}>
-          <InventoryCard item={item} />
-        </div>
-      ))}
-    </div>
+    <Row>
+      <Col className='   '>
+        <h1>Inventory </h1>
+        {data.map((item) => (
+          <div className='' key={item.id}>
+            <InventoryCard item={item} />
+          </div>
+        ))}
+      </Col>
+    </Row>
   );
 }

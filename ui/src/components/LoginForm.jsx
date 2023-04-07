@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ export function LoginForm() {
             throw new Error('Passwords do not match');
           }
           // console.log(user);
-          setCurrentUser(user.username);
+          setCurrentUser(user);
           setIsLoggedIn(true);
           navigate('/myinventory');
         })
@@ -62,21 +62,23 @@ export function LoginForm() {
 
   if (!isLoggedIn) {
     return (
-      <div>
-        <br />
-        <br />
-        <form onSubmit={handleSubmit(handleData)}>
-          <label htmlFor='username'>username</label>
-          <input type='username' id='username' {...register('username')} />
+      <Row>
+        <Col>
           <br />
           <br />
-          <label htmlFor='password'>password</label>
-          <input type='password' id='password' {...register('password')} />
-          <br />
-          <br />
-          <button type='submit'>Login</button>
-        </form>
-      </div>
+          <form onSubmit={handleSubmit(handleData)}>
+            <label htmlFor='username'>username</label>
+            <input type='username' id='username' {...register('username')} />
+            <br />
+            <br />
+            <label htmlFor='password'>password</label>
+            <input type='password' id='password' {...register('password')} />
+            <br />
+            <br />
+            <button type='submit'>Login</button>
+          </form>
+        </Col>
+      </Row>
     );
   }
 }

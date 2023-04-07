@@ -57,7 +57,7 @@ export default function AppNavbar() {
         </Navbar>
       </Col>
       <Col>
-        <div>{`Current user:  ${currentUser}`}</div>
+        <div>{`Current user:  ${currentUser.username}`}</div>
       </Col>
     </Row>
   );
