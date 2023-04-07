@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useContext, useMemo, useState } from 'react';
@@ -13,6 +14,7 @@ const queryClient = new QueryClient();
 
 export function MainContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState('Visitor');
   // add here the states you want to pass through the context provider
   const [someState, setSomeState] = useState(
     'Hello Vite, This text is in the Context provider component',
@@ -21,7 +23,14 @@ export function MainContextProvider({ children }) {
   return (
     <QueryClientProvider client={queryClient}>
       <SomeContext.Provider
-        value={{ someState, setSomeState, isLoggedIn, setIsLoggedIn }}
+        value={{
+          someState,
+          setSomeState,
+          isLoggedIn,
+          setIsLoggedIn,
+          currentUser,
+          setCurrentUser,
+        }}
       >
         {children}
       </SomeContext.Provider>

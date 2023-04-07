@@ -5,6 +5,19 @@ const getItems = (item) => {
   return knex('item').where({ item_name: item.item_name }).select();
 };
 
+// get user
+const getUser = async (user) => {
+  try {
+    const userData = await knex('users').where(user).first();
+    if (!userData) {
+      throw new Error('User not found');
+    }
+    return userData;
+  } catch (error) {
+    throw error;
+  }
+};
+
 // get all items
 const getAllItems = () => {
   return knex.select().from('item');
@@ -16,9 +29,6 @@ const createUser = async (user) => {
     const [newUser] = await knex('users').insert(user).returning('*');
     return newUser;
   } catch (err) {
-    // if (err.code === '23505' || '23503') {
-    //   throw new Error('User already exists');
-    // }
     throw err;
   }
 };
@@ -53,4 +63,5 @@ module.exports = {
   getAllItems,
   updateItem,
   deleteItem,
+  getUser,
 };

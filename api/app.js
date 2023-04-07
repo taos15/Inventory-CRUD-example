@@ -8,6 +8,7 @@ const {
   getAllItems,
   updateItem,
   deleteItem,
+  getUser,
 } = require('./knex/knexControllers');
 
 const app = express();
@@ -69,6 +70,7 @@ app.get('/api/v1/item', async (req, res) => {
   }
 });
 
+// create user account
 app.post('/api/v1/createuser', async (req, res) => {
   try {
     await createUser(req.body);
@@ -83,6 +85,23 @@ app.post('/api/v1/createuser', async (req, res) => {
   }
 });
 
+// get user
+app.get('/api/v1/user/:username', async (req, res) => {
+  try {
+    const user = await getUser(req.params);
+    res.status(200).send(user)[0];
+  } catch (e) {
+    if (e.message === 'User not found') {
+      res.status(400).send(e.message);
+    } else {
+      console.log(e);
+      res.status(500).send('Internal server error');
+      console.log(e.message);
+    }
+  }
+});
+
+// create item
 app.post('/api/v1/createitem', async (req, res) => {
   try {
     await createItem(req.body);

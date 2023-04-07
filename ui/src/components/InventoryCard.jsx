@@ -20,8 +20,9 @@ export default function InventoryCard({ item }) {
         <Card.Title>{item.item_name}</Card.Title>
         <Card.Subtitle className='text-muted mb-2'>{`Quantity: ${item.quantity}`}</Card.Subtitle>
         <Card.Text>
-          {location.pathname.includes('/inventory') &&
-          item.description.length >= 99
+          {location.pathname.includes('/inventory') ||
+          (location.pathname.includes('/myinventory') &&
+            item.description.length >= 99)
             ? `${item.description.slice(0, 100)}...`
             : item.description}
         </Card.Text>

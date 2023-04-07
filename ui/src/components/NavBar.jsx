@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { useContext, useEffect, useState } from 'react';
-import { Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,29 +10,55 @@ import { Link } from 'react-router-dom';
 import { useSome } from '../utilities/MainContextProvider';
 
 export default function AppNavbar() {
-  const { isLoggedIn, setIsLoggedIn } = useSome();
+  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useSome();
 
   return (
     <Row>
-      <Navbar className='  '>
-        <Nav className='tw-flex tw-justify-start tw-gap-6'>
-          <Link className='' to='/'>
-            Home
-          </Link>
-          <Link className='' to='/inventory'>
-            Inventory
-          </Link>
-          <Link className='' to='/inventory'>
-            Login
-          </Link>
-          <Link className='' to='/createuser'>
-            Create Account
-          </Link>
-          <Link className='' to='/inventory'>
-            My Inventory
-          </Link>
-        </Nav>
-      </Navbar>
+      <Col className=''>
+        <Navbar className=' '>
+          <Nav className=''>
+            <Link className='' to='/'>
+              Home
+            </Link>
+
+            <Link className='' to='/inventory'>
+              Inventory
+            </Link>
+
+            {!isLoggedIn ? (
+              <Link className='' to='/login'>
+                Login
+              </Link>
+            ) : (
+              <Link
+                onClick={() => {
+                  setIsLoggedIn(false);
+                  setCurrentUser('Visitor');
+                }}
+                className=''
+                to='/login'
+              >
+                Logout
+              </Link>
+            )}
+
+            {!isLoggedIn && (
+              <Link className='' to='/createuser'>
+                Create Account
+              </Link>
+            )}
+
+            {isLoggedIn && (
+              <Link className='' to='/myinventory'>
+                My Inventory
+              </Link>
+            )}
+          </Nav>
+        </Navbar>
+      </Col>
+      <Col>
+        <div>{`Current user:  ${currentUser}`}</div>
+      </Col>
     </Row>
   );
 }

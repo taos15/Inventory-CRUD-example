@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import InventoryCard from '../components/InventoryCard';
 
-export default function Inventory() {
+export default function MyInventory() {
   // react query, add a call back function as the second param to do the query
   const { data, isLoading, error } = useQuery(['inventoryItems'], async () => {
     const res = await axios.get('http://localhost:5010/api/v1/item');
@@ -26,6 +26,7 @@ export default function Inventory() {
 
   return (
     <div className='   '>
+      <h1>My Inventory page Placeholder</h1>
       {data.map((item) => (
         <div className='' key={item.id}>
           <InventoryCard item={item} />
