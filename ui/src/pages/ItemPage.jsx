@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import InventoryCard from '../components/InventoryCard';
-import InventoryTable from '../components/InventoryTable';
 import { useSome } from '../utilities/MainContextProvider';
 
 export default function ItemPage() {

@@ -1,32 +1,58 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function InventoryCard({ item }) {
   const navigateTo = useNavigate();
+  const location = useLocation();
 
   return (
     <Card
+      className='tw-border-2'
       onClick={() =>
         navigateTo(`/item/${item.id}`, {
           state: { item },
         })
       }
-      sx={{ maxWidth: 200 }}
+      style={{ minWidth: 150, minHeight: 190, maxHeight: 195 }}
     >
-      <CardContent>
-        <Typography gutterBottom variant='h5' component='div'>
-          {item.item_name}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-          {`Quantity: ${item.quantity}`}
-        </Typography>
-        <Typography variant='body2' color='text.secondary'>
-          {item.description}
-        </Typography>
-      </CardContent>
+      <Card.Body>
+        <Card.Title>{item.item_name}</Card.Title>
+        <Card.Subtitle className='text-muted mb-2'>{`Quantity: ${item.quantity}`}</Card.Subtitle>
+        <Card.Text>
+          {location.pathname.includes('/inventory') &&
+          item.description.length > 99
+            ? `${item.description.slice(0, 100)}...`
+            : item.description}
+        </Card.Text>
+      </Card.Body>
     </Card>
   );
+
+  // return (
+  //   <Card
+  //     className=''
+  //     onClick={() =>
+  //       navigateTo(`/item/${item.id}`, {
+  //         state: { item },
+  //       })
+  //     }
+  //     sx={{ minWidth: 150, minHeight: 190, maxHeight: 195 }}
+  //   >
+  //     <CardContent sx={{ minWidth: 150, minHeight: 190, maxHeight: 195 }}>
+  //       <Typography gutterBottom variant='h5' component='div'>
+  //         {item.item_name}
+  //       </Typography>
+  //       <Typography sx={{ mb: 1.5 }} color='text.secondary'>
+  //         {`Quantity: ${item.quantity}`}
+  //       </Typography>
+  //       <Typography variant='body2' color='text.secondary'>
+  //         {location.pathname.includes('/inventory') &&
+  //         item.description.length > 99
+  //           ? `${item.description.slice(0, 100)}...`
+  //           : item.description}
+  //       </Typography>
+  //     </CardContent>
+  //   </Card>
+  // );
 }
