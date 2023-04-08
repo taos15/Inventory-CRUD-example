@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -8,9 +8,9 @@ export default function InventoryCard({ item }) {
   const location = useLocation();
 
   return (
-    <Row>
+    <Col>
       <Card
-        style={{ width: '18rem' }}
+        style={{ border: '1px solid black' }}
         onClick={() =>
           navigateTo(`/item/${item.id}`, {
             state: { item },
@@ -30,7 +30,7 @@ export default function InventoryCard({ item }) {
           <Card.Text className='text-muted mb-2'>{`Quantity: ${item.quantity}`}</Card.Text>
         </Card.Body>
       </Card>
-    </Row>
+    </Col>
   );
 
   // return (

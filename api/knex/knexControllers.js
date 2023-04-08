@@ -32,17 +32,26 @@ const createUser = async (user) => {
     throw err;
   }
 };
-
 // create one item
 const createItem = async (item) => {
-  const user = await knex('users')
-    .where({ username: item.username })
-    .select('id');
-  item.userid = user[0].id;
-  const { username, ...itemToInser } = item;
-  // console.log(itemToInser);
-  return knex('item').insert(itemToInser);
+  try {
+    const [newItem] = await knex('item').insert(item).returning('*');
+    return newItem;
+  } catch (err) {
+    throw err;
+  }
 };
+
+// // create one item
+// const createItem = async (item) => {
+//   const user = await knex('users')
+//     .where({ username: item.username })
+//     .select('id');
+//   item.userid = user[0].id;
+//   const { username, ...itemToInser } = item;
+//   // console.log(itemToInser);
+//   return knex('item').insert(itemToInser);
+// };
 
 // update one item
 const updateItem = async ({ item_name }, item) => {

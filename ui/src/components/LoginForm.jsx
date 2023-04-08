@@ -22,7 +22,7 @@ export function LoginForm() {
   register('');
 
   const handleData = (data) => {
-    if (Object.values(data).some((value) => value !== '')) {
+    if (Object.values(data).every((value) => value !== '')) {
       axios
         .get(`http://localhost:5010/api/v1/user/${data.username}`)
         .then((res) => res.data)
@@ -46,6 +46,9 @@ export function LoginForm() {
             console.log(err.message);
           }
         });
+    } else {
+      setUserError(true);
+      setUserExist('All fields are required');
     }
   };
 

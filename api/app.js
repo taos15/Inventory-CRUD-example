@@ -107,8 +107,22 @@ app.post('/api/v1/createitem', async (req, res) => {
     await createItem(req.body);
     res.status(201).send(req.body);
   } catch (e) {
-    console.log(e);
+    if (e.code === '23505') {
+      res.status(400).send('Item already exists');
+    } else {
+      console.log(e);
+      res.status(500).send('Internal server error');
+    }
   }
 });
+// // create item
+// app.post('/api/v1/createitem', async (req, res) => {
+//   try {
+//     await createItem(req.body);
+//     res.status(201).send(req.body);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 
 module.exports = app;

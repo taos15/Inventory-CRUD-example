@@ -1,11 +1,20 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Alert, Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
+import { useSome } from '../utilities/MainContextProvider';
 
 export function ItemForm() {
+  // context
+  const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useSome();
+
+  const navigate = useNavigate();
+
   const [userError, setUserError] = useState(false);
   const [userExist, setUserExist] = useState('');
   const form = useForm();
@@ -16,12 +25,16 @@ export function ItemForm() {
     'Content-Type': 'application/json',
   };
   const handleData = (data) => {
-    if (Object.values(data).some((value) => value !== '')) {
+    if (Object.values(data).some((value) => !value)) {
+      setUserError(true);
+      setUserExist('All fields are required');
+    } else {
+      data.userid = currentUser.id;
       axios
-        .post('http://localhost:5010/api/v1/createuser', JSON.stringify(data), {
+        .post('http://localhost:5010/api/v1/createitem', JSON.stringify(data), {
           headers,
         })
-        .then((res) => console.log(res.data))
+        .then((res) => navigate('/myinventory'))
         .catch((err) => {
           setUserError(true);
           console.log(err.response.data);
@@ -41,26 +54,23 @@ export function ItemForm() {
       </Alert>
     );
 
+  // console.log(currentUser);
   return (
     <Row>
       <Col>
         <br />
         <br />
         <form onSubmit={handleSubmit(handleData)}>
-          <label htmlFor='firstName'>First Name</label>
-          <input type='text' id='firstName' {...register('first_name')} />
+          <label htmlFor='item_name'>Item Name</label>
+          <input type='text' id='item_name' {...register('item_name')} />
           <br />
           <br />
-          <label htmlFor='lastName'>Last Name</label>
-          <input type='text' id='lastName' {...register('last_name')} />
+          <label htmlFor='description'>Description</label>
+          <input type='text' id='description' {...register('description')} />
           <br />
           <br />
-          <label htmlFor='username'>username</label>
-          <input type='username' id='username' {...register('username')} />
-          <br />
-          <br />
-          <label htmlFor='password'>password</label>
-          <input type='password' id='password' {...register('password')} />
+          <label htmlFor='quantity'>Quantity</label>
+          <input type='number' id='quantity' {...register('quantity')} />
           <br />
           <br />
           <button type='submit'>Submit</button>
