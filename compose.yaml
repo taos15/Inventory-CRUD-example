@@ -5,10 +5,13 @@ services:
     container_name: api
     env_file:
       - .env
-    volumes:
-      - ./api:/api
+    # volumes:
+    #   - ./api:/api
+    environment:
+      - DBHOST=db # database hostname/IP address
+      - APIPORTI=5010
     ports:
-      - 8080:${APIPORTI}
+      - ${APIPORTI}:${APIPORTI}
   UI:
     image: ui
     build: ./ui
@@ -17,8 +20,10 @@ services:
       - .env
     # volumes:
     #   - ./ui:/ui
+    environment:
+      - UIPORTI=5011
     ports:
-      - 8070:${UIPORTI}
+      - ${UIPORTI}:${UIPORTI}
   db:
     image: postgres
     container_name: db

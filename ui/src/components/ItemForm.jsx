@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/prefer-default-export */
@@ -10,11 +12,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useSome } from '../utilities/MainContextProvider';
 
 export function ItemForm({ item, editMode }) {
-  // Item Form state
-  const [itemStateName, setItemStateName] = useState(item.item_name);
-  const [itemStateDesc, setItemStateDesc] = useState(item.description);
-  const [itemStateQuan, setItemStateQuan] = useState(item.quantity);
-
   const location = useLocation();
   // context
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useSome();
@@ -98,15 +95,16 @@ export function ItemForm({ item, editMode }) {
             <span> {item.item_name} </span>
           )}
 
-          {((isLoggedIn && location.pathname.includes('/item') && editMode) ||
-            (isLoggedIn && location.pathname.includes('/createitem'))) && (
+          {isLoggedIn && location.pathname.includes('/item') && editMode && (
             <input
-              placeholder={itemStateName}
-              onChange={(e) => console.log(e.target.value)}
+              placeholder={item.item_name ?? ''}
               type='text'
               id='item_name'
               {...register('item_name')}
             />
+          )}
+          {isLoggedIn && location.pathname.includes('/createitem') && (
+            <input type='text' id='item_name' {...register('item_name')} />
           )}
           <br />
 
@@ -115,30 +113,34 @@ export function ItemForm({ item, editMode }) {
           {isLoggedIn && location.pathname.includes('/item') && !editMode && (
             <span> {item.description} </span>
           )}
-          {((isLoggedIn && location.pathname.includes('/item') && editMode) ||
-            (isLoggedIn && location.pathname.includes('/createitem'))) && (
+          {isLoggedIn && location.pathname.includes('/item') && editMode && (
             <input
-              placeholder={itemStateDesc}
+              placeholder={item.description || 'Description'}
               type='text'
               id='description'
               {...register('description')}
             />
+          )}
+          {isLoggedIn && location.pathname.includes('/createitem') && (
+            <input type='text' id='description' {...register('description')} />
           )}
           <br />
 
           <label htmlFor='quantity'>Quantity</label>
           <br />
           {isLoggedIn && location.pathname.includes('/item') && !editMode && (
-            <span> {itemStateQuan} </span>
+            <span> {item.quantity} </span>
           )}
-          {((isLoggedIn && location.pathname.includes('/item') && editMode) ||
-            (isLoggedIn && location.pathname.includes('/createitem'))) && (
+          {isLoggedIn && location.pathname.includes('/item') && editMode && (
             <input
-              placeholder={item.quantity}
+              placeholder={item.quantity || null}
               type='number'
               id='quantity'
               {...register('quantity')}
             />
+          )}
+          {isLoggedIn && location.pathname.includes('/createitem') && (
+            <input type='number' id='quantity' {...register('quantity')} />
           )}
           <br />
 
