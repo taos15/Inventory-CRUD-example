@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 /* eslint-disable import/no-extraneous-dependencies */
 import axios from 'axios';
 import { useState } from 'react';
@@ -7,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useSome } from '../utilities/MainContextProvider';
+import { ItemForm } from './ItemForm';
 
 export default function InventoryCard({ item }) {
   const navigateTo = useNavigate();
@@ -14,6 +16,7 @@ export default function InventoryCard({ item }) {
 
   const [userError, setUserError] = useState(false);
   const [userExist, setUserExist] = useState('');
+  const [editMode, setEditMode] = useState(false);
 
   // context
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useSome();
@@ -35,7 +38,7 @@ export default function InventoryCard({ item }) {
     return (
       <Alert key='danger' variant='danger'>
         {`${userExist} `}
-        <button onClick={() => setUserError(false)} type='button'>
+        <button onClick={() => setUserError(true)} type='button'>
           Try again!
         </button>
       </Alert>
@@ -62,41 +65,24 @@ export default function InventoryCard({ item }) {
               ? `${item.description.slice(0, 100)}...`
               : item.description}
           </Card.Text>
+
           <Card.Text className='text-muted mb-2'>{`Quantity: ${item.quantity}`}</Card.Text>
+
           {isLoggedIn && location.pathname.includes('/item') && (
             <Button variant='primary' onClick={() => handleData()}>
               Delete
             </Button>
           )}
+          {isLoggedIn && location.pathname.includes('/item') && !editMode && (
+            <Button variant='primary' onClick={() => setEditMode(true)}>
+              Edit Mode
+            </Button>
+          )}
         </Card.Body>
       </Card>
+      {isLoggedIn && location.pathname.includes('/item') && (
+        <ItemForm item={item} editMode={editMode} />
+      )}
     </Col>
   );
-
-  // return (
-  //   <Card
-  //     className=''
-  //     onClick={() =>
-  //       navigateTo(`/item/${item.id}`, {
-  //         state: { item },
-  //       })
-  //     }
-  //     sx={{ minWidth: 150, minHeight: 190, maxHeight: 195 }}
-  //   >
-  //     <CardContent sx={{ minWidth: 150, minHeight: 190, maxHeight: 195 }}>
-  //       <Typography gutterBottom variant='h5' component='div'>
-  //         {item.item_name}
-  //       </Typography>
-  //       <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-  //         {`Quantity: ${item.quantity}`}
-  //       </Typography>
-  //       <Typography variant='body2' color='text.secondary'>
-  //         {location.pathname.includes('/inventory') &&
-  //         item.description.length > 99
-  //           ? `${item.description.slice(0, 100)}...`
-  //           : item.description}
-  //       </Typography>
-  //     </CardContent>
-  //   </Card>
-  // );
 }

@@ -42,21 +42,10 @@ const createItem = async (item) => {
   }
 };
 
-// // create one item
-// const createItem = async (item) => {
-//   const user = await knex('users')
-//     .where({ username: item.username })
-//     .select('id');
-//   item.userid = user[0].id;
-//   const { username, ...itemToInser } = item;
-//   // console.log(itemToInser);
-//   return knex('item').insert(itemToInser);
-// };
-
 // update one item
-const updateItem = async ({ item_name }, item) => {
-  const id = await knex('item').where({ item_name }).select();
-  return knex('item').where({ id: id[0].id }).update(item[0]);
+const updateItem = async (id, item) => {
+  // const id = await knex('item').where({ item_name }).select();
+  return knex('item').where(id).update(item);
 };
 
 // delete one item

@@ -37,13 +37,14 @@ app.get('/api/v1/item/:item_name', async (req, res) => {
 });
 
 // update one item
-app.patch('/api/v1/item/:item_name', async (req, res) => {
+app.patch('/api/v1/item/:id', async (req, res) => {
   try {
     await updateItem(req.params, req.body);
-    const item = await getItems(req.params);
-    res.status(201).send(item);
+    console.log(req.params, req.body);
+    // const updatedItem = await getItems(req.body.item_name);
+    res.status(201).send('item updated successfully');
   } catch (e) {
-    console.log(e);
+    console.log('This is the error from the patch', e);
   }
 });
 
@@ -115,14 +116,5 @@ app.post('/api/v1/createitem', async (req, res) => {
     }
   }
 });
-// // create item
-// app.post('/api/v1/createitem', async (req, res) => {
-//   try {
-//     await createItem(req.body);
-//     res.status(201).send(req.body);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
 
 module.exports = app;
