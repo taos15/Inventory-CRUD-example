@@ -4,8 +4,10 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Alert, Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 export function FormDoc() {
+  const navigate = useNavigate();
   const [userError, setUserError] = useState(false);
   const [userExist, setUserExist] = useState('');
   const form = useForm();
@@ -21,7 +23,7 @@ export function FormDoc() {
         .post('http://localhost:5010/api/v1/createuser', JSON.stringify(data), {
           headers,
         })
-        .then((res) => console.log(res.data))
+        .then((res) => navigate('/login'))
         .catch((err) => {
           setUserError(true);
           console.log(err.response.data);
