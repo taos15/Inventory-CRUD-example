@@ -65,5 +65,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.gitignore
 db*
