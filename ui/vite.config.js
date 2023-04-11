@@ -11,8 +11,14 @@ https://vitejs.dev/config/server-options.html#server-watch */
 export default defineConfig({
   plugins: [react()],
   server: {
+    watch: {
+      usePolling: true,
+    },
     host: true,
     strictPort: true,
     port,
   },
+  // build: {
+  //   outDir: '../api/view',
+  // },
 });

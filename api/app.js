@@ -1,6 +1,7 @@
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
+const path = require('path');
 const {
   createUser,
   createItem,
@@ -22,9 +23,12 @@ app.use(morgan('dev'));
 // can pass a {origin: someOrigin, optionsSuccessStatus: 200} to limit the cors
 app.use(cors());
 
-app.get('/', (req, res) => {
-  res.status(200).send('server up and running');
-});
+// static page render
+app.use(express.static(path.join(__dirname, 'view')));
+
+// app.get('/', (req, res) => {
+//   res.status(200).send('server up and running');
+// });
 
 // get one item
 app.get('/api/v1/item/:item_name', async (req, res) => {
@@ -115,6 +119,10 @@ app.post('/api/v1/createitem', async (req, res) => {
       res.status(500).send('Internal server error');
     }
   }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'view', 'index.html'));
 });
 
 module.exports = app;

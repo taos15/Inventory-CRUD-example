@@ -13,7 +13,7 @@ import { ItemForm } from './ItemForm';
 
 // api host
 // dotenv.config({ path: '../.env' });
-const host = import.meta.env.VITE_APIHOST ?? 'api';
+const host = import.meta.env.VITE_APIHOST ?? 'localhost';
 
 export default function InventoryCard({ item }) {
   const navigateTo = useNavigate();

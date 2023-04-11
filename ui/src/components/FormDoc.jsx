@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 // api host
 // dotenv.config({ path: '../.env' });
-const host = import.meta.env.VITE_APIHOST ?? 'api';
+const host = import.meta.env.VITE_APIHOST ?? 'localhost';
 
 export function FormDoc() {
   const navigate = useNavigate();

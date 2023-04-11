@@ -12,7 +12,7 @@ import { useSome } from '../utilities/MainContextProvider';
 
 // api host
 // dotenv.config({ path: '../.env' });
-const host = import.meta.env.VITE_APIHOST ?? 'api';
+const host = import.meta.env.VITE_APIHOST ?? 'localhost';
 
 export function LoginForm() {
   const navigate = useNavigate();

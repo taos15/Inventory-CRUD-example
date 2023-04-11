@@ -6,7 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 
 import InventoryCard from '../components/InventoryCard';
 
-const host = import.meta.env.VITE_APIHOST ?? 'api';
+const host = import.meta.env.VITE_APIHOST ?? 'localhost';
 
 export default function Inventory() {
   // react query, add a call back function as the second param to do the query
