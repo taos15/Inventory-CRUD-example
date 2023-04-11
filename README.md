@@ -60,6 +60,37 @@ services:
       - POSTGRES_USER=${DATABASEUSER}
       - POSTGRES_DB=${DATABASENAME}
       - POSTGRES_PASSWORD=${DATABASEPASSWORD}
+  api:
+    image: api
+    build: .
+    container_name: api
+    depends_on:
+      - db
+    env_file:
+      - .env
+    # volumes:
+    #   - ./api:/api
+    environment:
+      - DBHOST=db # database hostname/IP address
+      - API_URL=localhost # database hostname/IP address
+      - APIPORTI=5010
+    ports:
+      - ${APIPORTI}:${APIPORTI}
+  # ui:
+  #   image: ui
+  #   build: ./ui
+  #   container_name: ui
+  #   depends_on:
+  #     - api
+  #   env_file:
+  #     - .env
+  #   # volumes:
+  #   #   - ./ui:/ui
+  #   environment:
+  #     - UIPORTI=5011
+  #   ports:
+  #     - ${UIPORTI}:${UIPORTI}
+
 
 ```
 
