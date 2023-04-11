@@ -48,6 +48,4 @@ COPY ./ui/.env .
 # Copy ui
 COPY --from=ui-build /ui/dist/ /api/view/
 
-
-
 CMD [ "npm", "start" ]
