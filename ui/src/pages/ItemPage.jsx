@@ -6,6 +6,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import InventoryCard from '../components/InventoryCard';
 import { useSome } from '../utilities/MainContextProvider';
 
+const host = import.meta.env.VITE_APIHOST ?? 'api';
+
 export default function ItemPage() {
   const { item } = useLocation().state;
   const { someState, setSomeState } = useSome();
@@ -15,7 +17,7 @@ export default function ItemPage() {
     isLoading,
     isError,
   } = useQuery(['idForQuery'], async () => {
-    const res = await axios.get('http://localhost:5010/api/v1/item');
+    const res = await axios.get(`http://${host}:5010/api/v1/item`);
     const data = await res.data;
     return data;
   });

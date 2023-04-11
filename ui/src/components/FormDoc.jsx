@@ -1,10 +1,15 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
+import * as dotenv from 'dotenv';
 import React, { useState } from 'react';
 import { Alert, Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+
+// api host
+// dotenv.config({ path: '../.env' });
+const host = import.meta.env.VITE_APIHOST ?? 'api';
 
 export function FormDoc() {
   const navigate = useNavigate();
@@ -20,7 +25,7 @@ export function FormDoc() {
   const handleData = (data) => {
     if (Object.values(data).some((value) => value !== '')) {
       axios
-        .post('http://localhost:5010/api/v1/createuser', JSON.stringify(data), {
+        .post(`http://${host}:5010/api/v1/createuser`, JSON.stringify(data), {
           headers,
         })
         .then((res) => navigate('/login'))

@@ -1,6 +1,7 @@
 /* eslint-disable import/order */
 /* eslint-disable import/no-extraneous-dependencies */
 import axios from 'axios';
+import * as dotenv from 'dotenv';
 import { useState } from 'react';
 import { Alert, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -9,6 +10,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useSome } from '../utilities/MainContextProvider';
 import { ItemForm } from './ItemForm';
+
+// api host
+// dotenv.config({ path: '../.env' });
+const host = import.meta.env.VITE_APIHOST ?? 'api';
 
 export default function InventoryCard({ item }) {
   const navigateTo = useNavigate();
@@ -24,7 +29,7 @@ export default function InventoryCard({ item }) {
   // delete handlers
   const handleData = (data) => {
     axios
-      .delete(`http://localhost:5010/api/v1/item/${item.item_name}`)
+      .delete(`http://${host}:5010/api/v1/item/${item.item_name}`)
       .then((res) => navigateTo('/myinventory'))
       .catch((err) => {
         setUserError(true);

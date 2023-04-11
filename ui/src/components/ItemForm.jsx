@@ -4,12 +4,17 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
+import * as dotenv from 'dotenv';
 import React, { useState } from 'react';
 import { Alert, Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useSome } from '../utilities/MainContextProvider';
+
+// api host
+// dotenv.config({ path: '../.env' });
+const host = import.meta.env.VITE_APIHOST ?? 'api';
 
 export function ItemForm({ item, editMode }) {
   const location = useLocation();
@@ -36,7 +41,7 @@ export function ItemForm({ item, editMode }) {
       if (location.pathname.includes('/item')) {
         axios
           .patch(
-            `http://localhost:5010/api/v1/item/${item.id}`,
+            `http://${host}:5010/api/v1/item/${item.id}`,
             JSON.stringify(data),
             {
               headers,
@@ -51,13 +56,9 @@ export function ItemForm({ item, editMode }) {
           });
       } else {
         axios
-          .post(
-            'http://localhost:5010/api/v1/createitem',
-            JSON.stringify(data),
-            {
-              headers,
-            },
-          )
+          .post(`http://${host}:5010/api/v1/createitem`, JSON.stringify(data), {
+            headers,
+          })
           .then((res) => navigate('/myinventory'))
           .catch((err) => {
             setUserError(true);

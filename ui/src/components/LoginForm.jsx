@@ -2,12 +2,17 @@
 /* eslint-disable import/prefer-default-export */
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import * as dotenv from 'dotenv';
 import React, { useState } from 'react';
 import { Alert, Col, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { useSome } from '../utilities/MainContextProvider';
+
+// api host
+// dotenv.config({ path: '../.env' });
+const host = import.meta.env.VITE_APIHOST ?? 'api';
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -24,7 +29,7 @@ export function LoginForm() {
   const handleData = (data) => {
     if (Object.values(data).every((value) => value !== '')) {
       axios
-        .get(`http://localhost:5010/api/v1/user/${data.username}`)
+        .get(`http://${host}:5010/api/v1/user/${data.username}`)
         .then((res) => res.data)
         .then((user) => {
           if (data.password !== user.password) {

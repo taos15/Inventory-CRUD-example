@@ -7,12 +7,14 @@ import { Col, Row } from 'react-bootstrap';
 import InventoryCard from '../components/InventoryCard';
 import { useSome } from '../utilities/MainContextProvider';
 
+const host = import.meta.env.VITE_APIHOST ?? 'api';
+
 export default function MyInventory() {
   const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useSome();
 
   // react query, add a call back function as the second param to do the query
   const { data, isLoading, error } = useQuery(['inventoryItems'], async () => {
-    const res = await axios.get('http://localhost:5010/api/v1/item');
+    const res = await axios.get(`http://${host}:5010/api/v1/item`);
     return res.data;
   });
 
