@@ -64,11 +64,11 @@ services:
 1. Install and run the api server:
 
 - In the api folder run `npm install`
-- In the api folder run `npm start &`
+- In the api folder run `npm start`
 
 1. Install and run the ui server
 
 - In the ui folder run `npm install`
 - In the ui folder run `npm run dev`
 
-#### Note: when creating am account you might see a user already exist message, since this build is running on test/dev environment react might try to run command twice(usually only on the first user create after a app refresh) when refreshing the page. So after creating a use if not redirected to the login page just click the login at the top of the page.
+#### Note: when creating am account you might see a user already exist message, since this build is running on test/dev environment react might try to run command twice(usually only on the first user create after a app refresh) when refreshing the page. So after creating a use if not redirected to the login page just click the login at the top of the page. The UI will be running on localhopst:5011
